@@ -19,3 +19,27 @@ INSERT INTO customers(
     'helena@mail.com',
     NULL
 );
+
+INSERT INTO salesorders(
+    ordernumber,
+    customer_id
+)VALUES(
+    'A100-11',
+    1
+);
+
+UPDATE salesorders SET customer_id = 3 WHERE id = 1;
+
+INSERT INTO salesorders(
+    ordernumber,
+    customer_id
+)VALUES(
+    'A100-10',
+    1
+),(
+    'A100-11',
+    3
+),(
+    'A100-12',
+    1
+)

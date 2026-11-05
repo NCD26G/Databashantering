@@ -16,8 +16,10 @@ CREATE TABLE addresses(
 
 CREATE TABLE salesorders(
     id SERIAL PRIMARY KEY,
-    ordernumber VARCHAR(15) NOT NULL,
-    orderdate TIMESTAMP
+    ordernumber VARCHAR(15) NOT NULL UNIQUE,
+    orderdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    customer_id INTEGER NOT NULL,
+    CONSTRAINT fk_customers FOREIGN KEY(customer_id) REFERENCES customers(id) --ON DELETE CASCADE
 );
 
 CREATE TABLE suppliers(
@@ -33,5 +35,7 @@ CREATE TABLE products(
     productname VARCHAR(80) NOT NULL,
     description VARCHAR(2048) NULL,
     imageurl VARCHAR(128) NULL,
-    price FLOAT NOT NULL
+    price FLOAT NOT NULL,
+    supplier_id INTEGER NOT NULL,
+    CONSTRAINT fk_supplier FOREIGN KEY(supplier_id) REFERENCES suppliers(id)
 );
