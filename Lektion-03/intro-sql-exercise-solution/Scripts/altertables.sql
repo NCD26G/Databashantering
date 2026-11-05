@@ -1,0 +1,2 @@
+-- ALTER TABLE salesorders
+-- ADD COLUMN customer_id INTEGER;

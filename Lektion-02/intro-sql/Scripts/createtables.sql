@@ -18,8 +18,8 @@ CREATE TABLE salesorders(
     id SERIAL PRIMARY KEY,
     ordernumber VARCHAR(15) NOT NULL UNIQUE,
     orderdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    customer_id INTEGER NOT NULL,
-    CONSTRAINT fk_customers FOREIGN KEY(customer_id) REFERENCES customers(id) --ON DELETE CASCADE
+    customer_id INTEGER NOT NULL REFERENCES customers(id)
+    --CONSTRAINT fk_customers FOREIGN KEY(customer_id) REFERENCES customers(id) --ON DELETE CASCADE   
 );
 
 CREATE TABLE suppliers(
@@ -38,4 +38,30 @@ CREATE TABLE products(
     price FLOAT NOT NULL,
     supplier_id INTEGER NOT NULL,
     CONSTRAINT fk_supplier FOREIGN KEY(supplier_id) REFERENCES suppliers(id)
+);
+
+CREATE TABLE orderitems(
+    order_id INTEGER NOT NULL,
+    product_id INTEGER NOT NULL,
+    quantity INTEGER NOT NULL,
+    price FLOAT NOT NULL,
+    discount INTEGER NOT NULL DEFAULT 0,
+    CONSTRAINT pk_orderitems PRIMARY KEY(order_id,product_id),
+    CONSTRAINT fk_salesorder FOREIGN KEY(order_id) REFERENCES salesorders(id),
+    CONSTRAINT fk_products FOREIGN KEY(product_id) REFERENCES products(id)
+);
+
+CREATE TABLE addresstypes(
+    id SERIAL PRIMARY KEY,
+    addresstype VARCHAR(40) NOT NULL UNIQUE
+);
+
+CREATE TABLE customeraddresses(
+    customer_id INTEGER NOT NULL,
+    address_id INTEGER NOT NULL,
+    addresstype_id INTEGER NOT NULL,
+    CONSTRAINT pk_custaddr PRIMARY KEY(customer_id,address_id,addresstype_id),
+    CONSTRAINT fk_customer FOREIGN KEY(customer_id) REFERENCES customers(id),
+    CONSTRAINT fk_address FOREIGN KEY(address_id) REFERENCES addresses(id),
+    CONSTRAINT fk_addresstype FOREIGN KEY(addresstype_id) REFERENCES addresstypes(id)
 );
