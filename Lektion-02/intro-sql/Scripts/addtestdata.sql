@@ -1,0 +1,21 @@
+INSERT INTO customers(
+    firstname,
+    lastname,
+    email,
+    phone
+)VALUES(
+    'Michael',
+    'Gustavsson',
+    'michael@mail.com',
+    '070-1111111'
+),(
+    'Evert',
+    'Ljusberg',
+    'evert@mail.com',
+    '070-2222222'
+),(
+    'Helena',
+    'Pettersson',
+    'helena@mail.com',
+    NULL
+);
