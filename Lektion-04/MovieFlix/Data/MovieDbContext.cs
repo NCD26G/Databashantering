@@ -11,6 +11,6 @@ public class MovieDbContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlite("Data Source=movies.db");
-        // optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information);
+        optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information);
     }
 }
