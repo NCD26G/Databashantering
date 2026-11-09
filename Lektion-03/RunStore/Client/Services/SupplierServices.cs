@@ -9,19 +9,45 @@ namespace Client.Services;
 
 public class SupplierServices<T> : BaseService, ISupplierService<Supplier>
 {
-    public Task Add(Supplier data)
+    public Task<bool> Add(Supplier data)
     {
-        throw new System.NotImplementedException();
+        throw new NotImplementedException();
     }
 
     public Task Delete(Supplier data)
     {
-        throw new System.NotImplementedException();
+        throw new NotImplementedException();
+    }
+
+    public async Task<Supplier> Find(string search)
+    {
+        try
+        {
+
+            using NpgsqlConnection connection = new(ConnectionString);
+            using NpgsqlCommand command = connection.CreateCommand();
+            command.CommandText = $"SELECT id, suppliername FROM suppliers WHERE LOWER(suppliername)='{search.ToLower()}'";
+
+            await connection.OpenAsync();
+            using NpgsqlDataReader reader = await command.ExecuteReaderAsync();
+
+            await reader.ReadAsync();
+            return new Supplier { Id = reader.GetInt32(0), Name = reader.GetString(1) };
+
+        }
+        catch (InvalidOperationException ex)
+        {
+            throw new Exception(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(ex.Message);
+        }
     }
 
     public Task<Supplier> FindById(int id)
     {
-        throw new System.NotImplementedException();
+        throw new NotImplementedException();
     }
 
     public async Task<List<Supplier>> ListAll()
@@ -29,23 +55,19 @@ public class SupplierServices<T> : BaseService, ISupplierService<Supplier>
         try
         {
             List<Supplier> suppliers = [];
-            // Hämta data ifrån Postgres
-            // 1. Skapa ett anslutningsobjekt
+
             using NpgsqlConnection connection = new(ConnectionString);
-            // 2. Skapa ett fråge objekt
             using NpgsqlCommand command = connection.CreateCommand();
-            // 3. Lägg till sql frågan till frågeobjektet
+
             command.CommandText = @"SELECT
                                         id,
                                         suppliername
                                     FROM suppliers";
 
-            // 4. Öppna nu anslutningen till databasen => neon.com...
             await connection.OpenAsync();
-            // Kör frågan...
+
             using NpgsqlDataReader reader = await command.ExecuteReaderAsync();
 
-            // Iterar igenom resultatet...
             while (await reader.ReadAsync())
             {
                 suppliers.Add(new Supplier()
@@ -69,6 +91,6 @@ public class SupplierServices<T> : BaseService, ISupplierService<Supplier>
 
     public Task Update(Supplier data)
     {
-        throw new System.NotImplementedException();
+        throw new NotImplementedException();
     }
 }

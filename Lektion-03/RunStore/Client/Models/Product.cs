@@ -9,6 +9,6 @@ public record Product
     public string? ImageUrl { get; set; }
     public required string ItemNumber { get; set; }
     public required string Name { get; set; }
-    public required string SupplierName { get; set; }
+    public required Supplier Supplier { get; set; }
     public int Price { get; set; }
 }

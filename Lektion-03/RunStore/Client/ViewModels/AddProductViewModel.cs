@@ -11,7 +11,7 @@ namespace Client.ViewModels;
 
 public partial class AddProductViewModel : ViewModelBase
 {
-    private readonly IProductService _productService;
+    private readonly IProductService<Product> _productService;
     private readonly ISupplierService<Supplier> _supplierService;
 
     [ObservableProperty]
@@ -21,9 +21,9 @@ public partial class AddProductViewModel : ViewModelBase
     [ObservableProperty]
     public partial string Supplier { get; set; } = string.Empty;
     [ObservableProperty]
-    public partial int Price { get; set; }
+    public partial string Price { get; set; } = "";
     [ObservableProperty]
-    public partial Supplier SelectedSupplier { get; set; } = new() { Name = "" };
+    public partial Supplier? SelectedSupplier { get; set; } = new() { Name = "" };
     [ObservableProperty]
     public partial ObservableCollection<Supplier> Suppliers { get; set; } = [];
 
@@ -32,14 +32,14 @@ public partial class AddProductViewModel : ViewModelBase
     // TODO: Ta bort när allt fungerar...
     public AddProductViewModel()
     {
-        _productService = new ProductServices();
+        _productService = new ProductServices<Product>(new SupplierServices<Supplier>());
         _supplierService = new SupplierServices<Supplier>();
         PageTitle = "Ny Produkt";
         Init();
     }
     /*********************************************/
 
-    public AddProductViewModel(IProductService productService, ISupplierService<Supplier> supplierService)
+    public AddProductViewModel(IProductService<Product> productService, ISupplierService<Supplier> supplierService)
     {
         _productService = productService;
         _supplierService = supplierService;
@@ -56,15 +56,14 @@ public partial class AddProductViewModel : ViewModelBase
     [RelayCommand]
     private async Task Save()
     {
-        // Behöver eventuellt göra validering här...
         Product product = new()
         {
             ItemNumber = ItemNumber,
             Name = ProductName,
-            SupplierName = Supplier,
+            Supplier = SelectedSupplier!,
             ImageUrl = "https://res.cloudinary.com/softtech-dev/image/upload/v1773483409/no-image_ymlpwk.png",
             Description = "Ny Produkt",
-            Price = Price
+            Price = int.TryParse(Price, out int price) ? price : 0
         };
 
         await _productService.Add(product);
@@ -77,6 +76,7 @@ public partial class AddProductViewModel : ViewModelBase
         ItemNumber = string.Empty;
         ProductName = string.Empty;
         Supplier = string.Empty;
-        Price = 0;
+        SelectedSupplier = null;
+        Price = "";
     }
 }
