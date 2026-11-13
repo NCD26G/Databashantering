@@ -161,12 +161,18 @@ if (context.Movies.Any() == false)
 
 /* Uppdatera film */
 // Steg 1. Hämta filmen som ska uppdateras.
+// var x = await context.Movies.FindAsync(1);
 // var movieToUpdate = await context.Movies.SingleOrDefaultAsync(c => c.Title == "21 Bridges");
 
 // // Steg 2. uppdatera information i det funna objektet...
 // movieToUpdate?.Rating = 8.1;
 
 // bool hasChanges = context.ChangeTracker.HasChanges();
+
+// if (context.ChangeTracker.HasChanges())
+// {
+//     await context.SaveChangesAsync();
+// }
 
 // WriteLine($"Has changes: {hasChanges}");
 
