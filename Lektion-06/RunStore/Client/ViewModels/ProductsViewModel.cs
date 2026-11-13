@@ -85,6 +85,7 @@ public partial class ProductsViewModel : ViewModelBase
     {
         try
         {
+            _mainWindowViewModel!.IsBusy = true;
             if (_productRepo is not null)
             {
                 Products = new ObservableCollection<Entities.Product>(await _productRepo.ListAllAsync());
@@ -93,10 +94,15 @@ public partial class ProductsViewModel : ViewModelBase
             // {
             //     Products = new ObservableCollection<Product>(await _productService.ListAll());
             // }
+
         }
         catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
+        }
+        finally
+        {
+            _mainWindowViewModel!.IsBusy = false;
         }
     }
 }

@@ -14,6 +14,6 @@ public class ProductRepository(RunStoreDbContext context) : IProductRepository
 
     public async Task<List<Product>> ListAllAsync()
     {
-        return await _context.Products.ToListAsync();
+        return await _context.Products.Include(c => c.Supplier).ToListAsync();
     }
 }

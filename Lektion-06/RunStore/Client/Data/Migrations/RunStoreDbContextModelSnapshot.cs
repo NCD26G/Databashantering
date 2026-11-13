@@ -46,7 +46,12 @@ namespace Client.Data.Migrations
                     b.Property<int>("Price")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("SupplierId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("SupplierId");
 
                     b.ToTable("Products");
 
@@ -58,7 +63,8 @@ namespace Client.Data.Migrations
                             ImageUrl = "https://res.cloudinary.com/softtech-dev/image/upload/v1786556514/shoe-1_qig4ut.jpg",
                             ItemNumber = "1000",
                             Name = "Core 2000",
-                            Price = 1295
+                            Price = 1295,
+                            SupplierId = 1
                         },
                         new
                         {
@@ -67,8 +73,60 @@ namespace Client.Data.Migrations
                             ImageUrl = "https://res.cloudinary.com/softtech-dev/image/upload/v1786556530/shoe-3_qbzcwy.jpg",
                             ItemNumber = "1001",
                             Name = "Gel 27",
-                            Price = 2295
+                            Price = 2295,
+                            SupplierId = 2
                         });
+                });
+
+            modelBuilder.Entity("Client.Entities.Supplier", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Suppliers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Asics"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Nike"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "CLN Athletics"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Swix"
+                        });
+                });
+
+            modelBuilder.Entity("Client.Entities.Product", b =>
+                {
+                    b.HasOne("Client.Entities.Supplier", null)
+                        .WithMany("Products")
+                        .HasForeignKey("SupplierId");
+                });
+
+            modelBuilder.Entity("Client.Entities.Supplier", b =>
+                {
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

@@ -8,4 +8,6 @@ public class Product
     public required string ItemNumber { get; set; }
     public required string Name { get; set; }
     public int Price { get; set; }
+    // Navigation property
+    public required Supplier Supplier { get; set; }
 }
