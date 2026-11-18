@@ -13,7 +13,7 @@ public class RunStoreDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql("<ANGE ANSLUTNINGSSTRÄNGEN HÄR>");
+        optionsBuilder.UseNpgsql("<YOUR CONNECTIONSTRING>");
         optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information);
     }
 
