@@ -2,6 +2,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Client.Entities;
+using Client.Configuration;
 
 namespace Client.Data;
 
@@ -12,20 +13,15 @@ public class RunStoreDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql("<YOUR CONNECTSTRING");
+        optionsBuilder.UseNpgsql("<ANGE ANSLUTNINGSSTRÄNGEN HÄR>");
         optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         // Fluent Api
-        modelBuilder.Entity<Supplier>(
-            c => c.ToTable("suppliers")
-                .Property(p => p.Name)
-                .HasColumnName("supplierName")
-                .HasColumnType("VARCHAR(80)")
-                .IsRequired()
-        );
+        modelBuilder.ApplyConfiguration(new SupplierConfiguration());
+        modelBuilder.ApplyConfiguration(new ProductConfiguration());
 
         modelBuilder.Entity<Supplier>()
                     .HasData(

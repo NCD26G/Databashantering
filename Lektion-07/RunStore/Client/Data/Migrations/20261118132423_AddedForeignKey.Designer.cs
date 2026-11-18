@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Client.Data.Migrations
 {
     [DbContext(typeof(RunStoreDbContext))]
-    [Migration("20261118100723_FinalUpdatedProductColumns")]
-    partial class FinalUpdatedProductColumns
+    [Migration("20261118132423_AddedForeignKey")]
+    partial class AddedForeignKey
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,21 +48,31 @@ namespace Client.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("VARCHAR(80)")
+                        .HasMaxLength(80)
+                        .IsUnicode(false)
+                        .HasColumnType("character varying(80)")
                         .HasColumnName("productName");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("numeric")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("numeric(18,2)")
                         .HasColumnName("price");
 
                     b.Property<int>("SupplierId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("supplier_id");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ItemNumber")
+                        .IsUnique();
+
                     b.HasIndex("SupplierId");
 
-                    b.ToTable("products");
+                    b.ToTable("products", null, t =>
+                        {
+                            t.HasCheckConstraint("CK_Product_Price_NonNegative", "price >= 0");
+                        });
 
                     b.HasData(
                         new
@@ -91,17 +101,22 @@ namespace Client.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("VARCHAR(80)")
+                        .HasColumnName("supplierName");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Suppliers");
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("suppliers", (string)null);
 
                     b.HasData(
                         new

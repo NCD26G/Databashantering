@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Client.Data.Migrations
 {
     [DbContext(typeof(RunStoreDbContext))]
-    [Migration("20261118105844_Test2")]
-    partial class Test2
+    [Migration("20261118131616_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,11 +48,14 @@ namespace Client.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("VARCHAR(80)")
+                        .HasMaxLength(80)
+                        .IsUnicode(false)
+                        .HasColumnType("character varying(80)")
                         .HasColumnName("productName");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("numeric")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("numeric(18,2)")
                         .HasColumnName("price");
 
                     b.Property<int>("SupplierId")
@@ -60,9 +63,15 @@ namespace Client.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ItemNumber")
+                        .IsUnique();
+
                     b.HasIndex("SupplierId");
 
-                    b.ToTable("products");
+                    b.ToTable("products", null, t =>
+                        {
+                            t.HasCheckConstraint("CK_Product_Price_NonNegative", "price >= 0");
+                        });
 
                     b.HasData(
                         new
@@ -91,17 +100,20 @@ namespace Client.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(80)
-                        .HasColumnType("character varying(80)")
+                        .HasColumnType("VARCHAR(80)")
                         .HasColumnName("supplierName");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("suppliers", (string)null);
 
