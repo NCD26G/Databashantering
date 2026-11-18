@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>supplieraddresses</title>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic|Source+Code+Pro:300,400,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="../assets/css/bootstrap.css">
+<link rel="stylesheet" href="../assets/css/jquery.bonsai.css">
+<link rel="stylesheet" href="../assets/css/prose.css">
+<link rel="stylesheet" href="../assets/css/main.css">
+<link rel="stylesheet" href="../assets/icon-font/icons.css">
+<script type="text/javascript" src="../assets/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript" src="../assets/js/bootstrap.js"></script>
+<script type="text/javascript" src="../assets/js/jquery.bonsai.js"></script>
+<script type="text/javascript" src="../assets/js/imageMapResizer.min.js"></script>
+<link rel="stylesheet" href="../assets/css/dark.css">
+  </head>
+  <body>
+    <div>
+
+<h1>supplieraddresses</h1>
+
+<section style="margin-top: .5em;">
+<span class="alert alert-info">
+<span class="node-icon staruml-icon icon-ERDEntity"></span>
+ERDEntity
+</span>
+</section>
+
+<section style="margin-top: 10px">
+<span class="label label-info"><a href='cf9c8b720f3815adeccaf3ef6e48c6c4.html'><span class='node-icon staruml-icon icon-Project'></span>NCD26G-Databashantering</a></span>
+<span>::</span><span class="label label-info"><a href='594af663de577680f35b13183109d675.html'><span class='node-icon staruml-icon icon-UMLModel'></span>Model</a></span>
+<span>::</span><span class="label label-info"><a href='9678e3a3e011a267124c7007709e7b50.html'><span class='node-icon staruml-icon icon-ERDDataModel'></span>ERD</a></span>
+<span>::</span><span class="label label-info"><a href='e9be0d14e5eeb53ce5b5b2278bf29256.html'><span class='node-icon staruml-icon icon-ERDEntity'></span>supplieraddresses</a></span>
+</section>
+
+<section>
+<h3>Description</h3>
+<div>
+<span class="label label-info">none</span>
+</div>
+</section>
+<section>
+<h3>Columns</h3>
+<table class="table table-striped table-bordered">
+  <tr>
+    <th width="20%">Name</th>
+    <th width="20%">Type</th>
+    <th width="10%">Primary Key</th>
+    <th width="10%">Foreign Key</th>
+    <th width="20%">Reference To</th>
+    <th width="10%">Nullable</th>
+    <th width="10%">Unique</th>
+  </tr>
+  <tr>
+    <td><a href="d4cb25ba614753085f69bbfea4dfc118.html">supplier_id</a></td>
+    <td>INTEGER</td>
+    <td><span class='label label-info'>true</span></td>
+    <td><span class='label label-info'>true</span></td>
+    <td>
+      
+      <span class='label label-info'>null</span>
+    </td>
+    <td><span class='label label-info'>false</span></td>
+    <td><span class='label label-info'>false</span></td>
+  </tr>
+  <tr>
+    <td><a href="4cd5f5002ed3b5896fb16aa77ec7a701.html">address_id</a></td>
+    <td>INTEGER</td>
+    <td><span class='label label-info'>true</span></td>
+    <td><span class='label label-info'>true</span></td>
+    <td>
+      
+      <span class='label label-info'>null</span>
+    </td>
+    <td><span class='label label-info'>false</span></td>
+    <td><span class='label label-info'>false</span></td>
+  </tr>
+  <tr>
+    <td><a href="f9af715c8c165641be804489cd5a9a94.html">addresstype_id</a></td>
+    <td>INTEGER</td>
+    <td><span class='label label-info'>true</span></td>
+    <td><span class='label label-info'>true</span></td>
+    <td>
+      
+      <span class='label label-info'>null</span>
+    </td>
+    <td><span class='label label-info'>false</span></td>
+    <td><span class='label label-info'>false</span></td>
+  </tr>
+</table>
+</section>
+<section>
+<h3>Related Entities</h3>
+<table class="table table-striped table-bordered">
+  <tr>
+    <th width="25%">Entity</th>
+    <th width="25%">Cardinality</th>
+    <th width="25%">Reference Name</th>
+    <th width="25%">Relationship</th>
+  </tr>
+  <tr>
+    <td><a href='6dc6a52e8088a0588acaabac561b6939.html'><span class='node-icon staruml-icon icon-ERDEntity'></span>suppliers</a></td>
+    <td>0..*</td>
+    <td></td>
+    <td><a href='5b6e216d0fbeaf0f025e8bff52c60ce0.html'><span class='node-icon staruml-icon icon-ERDRelationship'></span>suppliers have addresses (supplieraddresses—suppliers)</a></td>
+  </tr>
+  <tr>
+    <td><a href='52f31311d209127902cf96540a58af73.html'><span class='node-icon staruml-icon icon-ERDEntity'></span>addresstypes</a></td>
+    <td>0..*</td>
+    <td></td>
+    <td><a href='fd70eef08edf25d599e9d25fb84c27fc.html'><span class='node-icon staruml-icon icon-ERDRelationship'></span>supplieraddress has addresstype (supplieraddresses—addresstypes)</a></td>
+  </tr>
+  <tr>
+    <td><a href='107906b3424c96c5d14ef8834bcfe188.html'><span class='node-icon staruml-icon icon-ERDEntity'></span>addresses</a></td>
+    <td>0..*</td>
+    <td></td>
+    <td><a href='fdc49b0fdfc145bba8daa5e207d51dec.html'><span class='node-icon staruml-icon icon-ERDRelationship'></span>Address has suppliers (supplieraddresses—addresses)</a></td>
+  </tr>
+</table>
+</section>
+<section>
+<h3>Properties</h3>
+<table class="table table-striped table-bordered">
+    <tr>
+        <th width="50%">Name</th>
+        <th width="50%">Value</th>
+    </tr>
+    <tr>
+        <td>name</td>
+        <td>supplieraddresses</td>
+    </tr>
+</table>
+</section>
+<section class="element-list">
+    <h3>Relationships</h3>
+    <ul class="nav nav-list">
+        <li><a href='5b6e216d0fbeaf0f025e8bff52c60ce0.html'><span class='node-icon staruml-icon icon-ERDRelationship'></span>suppliers have addresses (supplieraddresses—suppliers)</a></li>
+        <li><a href='fd70eef08edf25d599e9d25fb84c27fc.html'><span class='node-icon staruml-icon icon-ERDRelationship'></span>supplieraddress has addresstype (supplieraddresses—addresstypes)</a></li>
+        <li><a href='fdc49b0fdfc145bba8daa5e207d51dec.html'><span class='node-icon staruml-icon icon-ERDRelationship'></span>Address has suppliers (supplieraddresses—addresses)</a></li>
+    </ul>
+</section>
+<section class="element-list">
+    <h3>Owned Elements</h3>
+    <ul class="nav nav-list">
+        <li><a href='5b6e216d0fbeaf0f025e8bff52c60ce0.html'><span class='node-icon staruml-icon icon-ERDRelationship'></span>suppliers have addresses (supplieraddresses—suppliers)</a></li>
+        <li><a href='fd70eef08edf25d599e9d25fb84c27fc.html'><span class='node-icon staruml-icon icon-ERDRelationship'></span>supplieraddress has addresstype (supplieraddresses—addresstypes)</a></li>
+        <li><a href='fdc49b0fdfc145bba8daa5e207d51dec.html'><span class='node-icon staruml-icon icon-ERDRelationship'></span>Address has suppliers (supplieraddresses—addresses)</a></li>
+    </ul>
+</section>
+<section class="element-list">
+    <h3>Diagrams</h3>
+    <ul class="nav nav-list">
+        <li><a href='e9bd0b366d26200971262db443ba83bb.html'><span class='node-icon staruml-icon icon-ERDDiagram'></span>RunStore</a></li>
+    </ul>
+</section>
+
+      <!-- Image Map Resizer (https://github.com/davidjbradshaw/image-map-resizer) -->
+      <script>
+      imageMapResize();
+      </script>
+    </div>
+  </body>
+</html>

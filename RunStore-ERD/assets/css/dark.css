@@ -1,0 +1,146 @@
+/* dark.css (not in the original)
+   Linked when HTML docs are exported with the dark theme, since the diagrams
+   are drawn with the colors of the theme. The colors are of Zed "One Dark"
+   as the application (the background is the same as `$background`).
+---------------------------------------------------------*/
+
+body {
+  color: #c8ccd4;
+  background-color: #28282a;
+}
+
+a,
+a:hover,
+a:focus {
+  color: #74ade8;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+dt {
+  color: #dce0e5;
+}
+
+h1 small,
+h2 small,
+h3 small,
+h4 small,
+h5 small,
+h6 small {
+  color: #878a98;
+}
+
+code,
+pre {
+  color: #dce0e5;
+  background-color: #2f343e;
+  border-color: #464b57;
+}
+
+hr {
+  border-top-color: #464b57;
+  border-bottom-color: transparent;
+}
+
+.page-header {
+  border-bottom-color: #464b57;
+}
+
+.page-header h1 {
+  background: #28282a;
+}
+
+.alert-info {
+  color: #dce0e5;
+  background-color: #2b3a50;
+  border-color: #35486a;
+}
+
+.label-non-nullable,
+.label-nullable,
+.label-optional,
+.label-info,
+.badge-info {
+  color: #dce0e5;
+  background-color: #3b414d;
+}
+
+.table {
+  color: #c8ccd4;
+  background-color: #2f343e;
+}
+
+.table th,
+.table td {
+  border-top-color: #464b57;
+}
+
+.table-bordered,
+.table-bordered th,
+.table-bordered td {
+  border-color: #464b57;
+}
+
+.table-striped tbody > tr:nth-child(odd) > td,
+.table-striped tbody > tr:nth-child(odd) > th {
+  background-color: #2b2f37;
+}
+
+.prose table,
+.prose table th,
+.prose table td {
+  border-color: #464b57;
+}
+
+.prose table th {
+  background-color: #2f343e;
+}
+
+.nav-list > li > a,
+.nav-header {
+  color: #a9afbc;
+  text-shadow: none;
+}
+
+.nav > li > a:hover,
+.nav > li > a:focus {
+  color: #74ade8;
+  background-color: #363c46;
+}
+
+.btn {
+  color: #dce0e5;
+  background-color: #3b414d;
+  border-color: #464b57;
+}
+
+.element-list ul li {
+  color: #dce0e5;
+  background-color: #2b3a50;
+  border-color: #35486a;
+}
+
+.member,
+.member.private {
+  color: #c8ccd4;
+  background: #2f343e;
+  border-color: #464b57;
+}
+
+.member h4 {
+  border-bottom-color: #464b57;
+}
+
+.member .code {
+  background: #28282a;
+  border-color: #464b57;
+}
+
+.member .example:before,
+.member .scope {
+  color: #878a98;
+}
