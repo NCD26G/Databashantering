@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Client.Data.Migrations
 {
     [DbContext(typeof(RunStoreDbContext))]
-    [Migration("20261119084058_UpdateAddressTable")]
-    partial class UpdateAddressTable
+    [Migration("20261119094313_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,26 +25,12 @@ namespace Client.Data.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("AddressCustomer", b =>
-                {
-                    b.Property<int>("AddressesId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("CustomersId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("AddressesId", "CustomersId");
-
-                    b.HasIndex("CustomersId");
-
-                    b.ToTable("AddressCustomer");
-                });
-
             modelBuilder.Entity("Client.Entities.Address", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
@@ -72,7 +58,8 @@ namespace Client.Data.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AddressId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("address_id");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -257,19 +244,19 @@ namespace Client.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("AddressCustomer", b =>
+            modelBuilder.Entity("customeraddresses", b =>
                 {
-                    b.HasOne("Client.Entities.Address", null)
-                        .WithMany()
-                        .HasForeignKey("AddressesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("address_id")
+                        .HasColumnType("integer");
 
-                    b.HasOne("Client.Entities.Customer", null)
-                        .WithMany()
-                        .HasForeignKey("CustomersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("customer_id")
+                        .HasColumnType("integer");
+
+                    b.HasKey("address_id", "customer_id");
+
+                    b.HasIndex("customer_id");
+
+                    b.ToTable("customeraddresses");
                 });
 
             modelBuilder.Entity("Client.Entities.Product", b =>
@@ -292,6 +279,21 @@ namespace Client.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("customeraddresses", b =>
+                {
+                    b.HasOne("Client.Entities.Address", null)
+                        .WithMany()
+                        .HasForeignKey("address_id")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Client.Entities.Customer", null)
+                        .WithMany()
+                        .HasForeignKey("customer_id")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Client.Entities.Customer", b =>

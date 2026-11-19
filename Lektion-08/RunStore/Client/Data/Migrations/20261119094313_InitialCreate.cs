@@ -15,6 +15,20 @@ namespace Client.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "addresses",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    addressline = table.Column<string>(type: "text", nullable: false),
+                    customer_id = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_addresses", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "customers",
                 columns: table => new
                 {
@@ -23,7 +37,8 @@ namespace Client.Data.Migrations
                     firstname = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
                     lastname = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: false),
                     email = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
-                    phone = table.Column<string>(type: "character varying(15)", maxLength: 15, nullable: true)
+                    phone = table.Column<string>(type: "character varying(15)", maxLength: 15, nullable: true),
+                    address_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -41,6 +56,30 @@ namespace Client.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_suppliers", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "customeraddresses",
+                columns: table => new
+                {
+                    address_id = table.Column<int>(type: "integer", nullable: false),
+                    customer_id = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_customeraddresses", x => new { x.address_id, x.customer_id });
+                    table.ForeignKey(
+                        name: "FK_customeraddresses_addresses_address_id",
+                        column: x => x.address_id,
+                        principalTable: "addresses",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_customeraddresses_customers_customer_id",
+                        column: x => x.customer_id,
+                        principalTable: "customers",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -110,6 +149,11 @@ namespace Client.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_customeraddresses_customer_id",
+                table: "customeraddresses",
+                column: "customer_id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_customers_email",
                 table: "customers",
                 column: "email",
@@ -148,10 +192,16 @@ namespace Client.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "customeraddresses");
+
+            migrationBuilder.DropTable(
                 name: "products");
 
             migrationBuilder.DropTable(
                 name: "salesorders");
+
+            migrationBuilder.DropTable(
+                name: "addresses");
 
             migrationBuilder.DropTable(
                 name: "suppliers");

@@ -55,7 +55,8 @@ namespace Client.Data.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AddressId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("address_id");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -282,13 +283,13 @@ namespace Client.Data.Migrations
                     b.HasOne("Client.Entities.Address", null)
                         .WithMany()
                         .HasForeignKey("address_id")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Client.Entities.Customer", null)
                         .WithMany()
                         .HasForeignKey("customer_id")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 

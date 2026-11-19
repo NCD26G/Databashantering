@@ -35,6 +35,9 @@ public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
             .HasColumnName("phone")
             .HasMaxLength(15);
 
+        builder.Property(c => c.AddressId)
+            .HasColumnName("address_id");
+
         builder.HasMany(o => o.SalesOrders)
             .WithOne(c => c.Customer)
             .HasForeignKey(f => f.CustomerId)

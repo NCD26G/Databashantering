@@ -47,9 +47,9 @@ public class RunStoreDbContext : DbContext
             .WithMany(c => c.Customers)
             .UsingEntity("customeraddresses",
                 // Till höger har vi en tabell/klass Address som kommer att ha många adress id i tabellen customeraddresses 
-                r => r.HasOne(typeof(Address)).WithMany().HasForeignKey("address_id"),
+                r => r.HasOne(typeof(Address)).WithMany().HasForeignKey("address_id").OnDelete(DeleteBehavior.Restrict),
                 // Till vänster har vi en tabell/klass Customer som kommer att ha många kund id i tabellen customeraddresses
-                l => l.HasOne(typeof(Customer)).WithMany().HasForeignKey("customer_id")
+                l => l.HasOne(typeof(Customer)).WithMany().HasForeignKey("customer_id").OnDelete(DeleteBehavior.Restrict)
             );
 
         modelBuilder.Entity<Supplier>()
