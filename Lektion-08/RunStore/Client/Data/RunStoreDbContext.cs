@@ -12,16 +12,17 @@ public class RunStoreDbContext : DbContext
     public DbSet<Supplier> Suppliers { get; set; }
     public DbSet<Customer> Customers { get; set; }
     public DbSet<SalesOrder> SalesOrders { get; set; }
+    public DbSet<Address> Addresses { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql("Server=127.0.0.1;Port=5432;Database=runstoredb;User Id=postgres;Password=postgres");
+        optionsBuilder.UseNpgsql("<YOUR CONNECTIONSTRING HERE!>");
         optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // Fluent Api
+        // // Fluent Api
         modelBuilder.ApplyConfiguration(new SupplierConfiguration());
         modelBuilder.ApplyConfiguration(new ProductConfiguration());
         modelBuilder.ApplyConfiguration(new CustomerConfiguration());
@@ -29,19 +30,10 @@ public class RunStoreDbContext : DbContext
 
         // Konfigurera Address klassen
         modelBuilder.Entity<Address>().ToTable("addresses");
+        modelBuilder.Entity<Address>().Property(a => a.Id).HasColumnName("id");
+        modelBuilder.Entity<Address>().Property(a => a.AddressLine).HasColumnName("addressline");
 
-        modelBuilder.Entity<Address>()
-            .Property(a => a.Id).HasColumnName("id");
-
-        modelBuilder.Entity<Address>()
-            .Property(a => a.AddressLine)
-            .HasColumnName("addressline");
-
-        modelBuilder.Entity<Address>()
-            .Property(a => a.CustomerId)
-            .HasColumnName("customer_id");
-
-        // Konfigurera många-till-många relationen mellan Address och Customer
+        // // Konfigurera många-till-många relationen mellan Address och Customer
         modelBuilder.Entity<Customer>()
             .HasMany(a => a.Addresses)
             .WithMany(c => c.Customers)
@@ -51,6 +43,47 @@ public class RunStoreDbContext : DbContext
                 // Till vänster har vi en tabell/klass Customer som kommer att ha många kund id i tabellen customeraddresses
                 l => l.HasOne(typeof(Customer)).WithMany().HasForeignKey("customer_id").OnDelete(DeleteBehavior.Restrict)
             );
+
+        // Konfigurera många-till-många förhållande mellan produkter och beställningar
+        modelBuilder.Entity<OrderItems>().ToTable("orderitems");
+        modelBuilder.Entity<OrderItems>()
+            .Property(oi => oi.SalesOrderId)
+            .HasColumnName("order_id");
+
+        modelBuilder.Entity<OrderItems>()
+            .Property(oi => oi.ProductId)
+            .HasColumnName("product_id");
+
+        modelBuilder.Entity<OrderItems>()
+            .Property(oi => oi.Discount)
+            .HasColumnName("discount");
+
+        modelBuilder.Entity<OrderItems>()
+        .Property(oi => oi.Price)
+        .HasColumnName("price");
+
+        modelBuilder.Entity<OrderItems>()
+            .Property(oi => oi.Quantity)
+            .HasColumnName("quantity");
+
+        modelBuilder.Entity<OrderItems>(c =>
+        {
+            // Vi skapar en sammansatt primärnyckel
+            c.HasKey(oi => new { oi.SalesOrderId, oi.ProductId });
+
+            // Vi ska koppla tabellen salesorder till orderitems
+            // En salesorder kan ha många produkter
+            c.HasOne(oi => oi.SalesOrder)
+                .WithMany(o => o.Items)
+                .HasForeignKey(oi => oi.SalesOrderId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Vi ska koppla samman tabellen products med orderitems
+            c.HasOne(oi => oi.Product)
+                .WithMany()
+                .HasForeignKey(oi => oi.ProductId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
 
         modelBuilder.Entity<Supplier>()
                     .HasData(

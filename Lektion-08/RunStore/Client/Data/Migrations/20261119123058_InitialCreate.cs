@@ -20,8 +20,7 @@ namespace Client.Data.Migrations
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    addressline = table.Column<string>(type: "text", nullable: false),
-                    customer_id = table.Column<int>(type: "integer", nullable: false)
+                    addressline = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -37,8 +36,7 @@ namespace Client.Data.Migrations
                     firstname = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
                     lastname = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: false),
                     email = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
-                    phone = table.Column<string>(type: "character varying(15)", maxLength: 15, nullable: true),
-                    address_id = table.Column<int>(type: "integer", nullable: false)
+                    phone = table.Column<string>(type: "character varying(15)", maxLength: 15, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -128,6 +126,33 @@ namespace Client.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "orderitems",
+                columns: table => new
+                {
+                    order_id = table.Column<int>(type: "integer", nullable: false),
+                    product_id = table.Column<int>(type: "integer", nullable: false),
+                    quantity = table.Column<int>(type: "integer", nullable: false),
+                    price = table.Column<decimal>(type: "numeric", nullable: false),
+                    discount = table.Column<decimal>(type: "numeric", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_orderitems", x => new { x.order_id, x.product_id });
+                    table.ForeignKey(
+                        name: "FK_orderitems_products_product_id",
+                        column: x => x.product_id,
+                        principalTable: "products",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_orderitems_salesorders_order_id",
+                        column: x => x.order_id,
+                        principalTable: "salesorders",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.InsertData(
                 table: "suppliers",
                 columns: new[] { "id", "suppliername" },
@@ -158,6 +183,11 @@ namespace Client.Data.Migrations
                 table: "customers",
                 column: "email",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_orderitems_product_id",
+                table: "orderitems",
+                column: "product_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_products_itemnumber",
@@ -195,13 +225,16 @@ namespace Client.Data.Migrations
                 name: "customeraddresses");
 
             migrationBuilder.DropTable(
+                name: "orderitems");
+
+            migrationBuilder.DropTable(
+                name: "addresses");
+
+            migrationBuilder.DropTable(
                 name: "products");
 
             migrationBuilder.DropTable(
                 name: "salesorders");
-
-            migrationBuilder.DropTable(
-                name: "addresses");
 
             migrationBuilder.DropTable(
                 name: "suppliers");

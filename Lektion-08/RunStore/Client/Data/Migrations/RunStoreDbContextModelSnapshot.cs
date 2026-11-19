@@ -36,10 +36,6 @@ namespace Client.Data.Migrations
                         .HasColumnType("text")
                         .HasColumnName("addressline");
 
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("integer")
-                        .HasColumnName("customer_id");
-
                     b.HasKey("Id");
 
                     b.ToTable("addresses", (string)null);
@@ -53,10 +49,6 @@ namespace Client.Data.Migrations
                         .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AddressId")
-                        .HasColumnType("integer")
-                        .HasColumnName("address_id");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -87,6 +79,35 @@ namespace Client.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("customers", (string)null);
+                });
+
+            modelBuilder.Entity("Client.Entities.OrderItems", b =>
+                {
+                    b.Property<int>("SalesOrderId")
+                        .HasColumnType("integer")
+                        .HasColumnName("order_id");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer")
+                        .HasColumnName("product_id");
+
+                    b.Property<decimal?>("Discount")
+                        .HasColumnType("numeric")
+                        .HasColumnName("discount");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("numeric")
+                        .HasColumnName("price");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer")
+                        .HasColumnName("quantity");
+
+                    b.HasKey("SalesOrderId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("orderitems", (string)null);
                 });
 
             modelBuilder.Entity("Client.Entities.Product", b =>
@@ -256,6 +277,25 @@ namespace Client.Data.Migrations
                     b.ToTable("customeraddresses");
                 });
 
+            modelBuilder.Entity("Client.Entities.OrderItems", b =>
+                {
+                    b.HasOne("Client.Entities.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Client.Entities.SalesOrder", "SalesOrder")
+                        .WithMany("Items")
+                        .HasForeignKey("SalesOrderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("SalesOrder");
+                });
+
             modelBuilder.Entity("Client.Entities.Product", b =>
                 {
                     b.HasOne("Client.Entities.Supplier", "Supplier")
@@ -296,6 +336,11 @@ namespace Client.Data.Migrations
             modelBuilder.Entity("Client.Entities.Customer", b =>
                 {
                     b.Navigation("SalesOrders");
+                });
+
+            modelBuilder.Entity("Client.Entities.SalesOrder", b =>
+                {
+                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("Client.Entities.Supplier", b =>
