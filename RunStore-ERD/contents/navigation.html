@@ -250,6 +250,26 @@
 </li>
 </ol>
 </li>
+<li>
+<div style="display: inline-block; white-space: nowrap">
+    <span class="node-icon staruml-icon icon-ERDRelationship"></span>
+        <a href="7630c8274cc640744bfd9f0ecc4d021a.html" target="content" style="white-space: nowrap;">An order can have multiple invoices (salesorders—invoices)</a>
+</div>
+<ol>
+<li>
+<div style="display: inline-block; white-space: nowrap">
+    <span class="node-icon staruml-icon icon-ERDRelationshipEnd"></span>
+        <a href="3e3c17afbeb832bb2d23f5cc6c808589.html" target="content" style="white-space: nowrap;">(ERDRelationshipEnd)</a>
+</div>
+</li>
+<li>
+<div style="display: inline-block; white-space: nowrap">
+    <span class="node-icon staruml-icon icon-ERDRelationshipEnd"></span>
+        <a href="5d04f1a41b82a730f4e9526efa14728e.html" target="content" style="white-space: nowrap;">(ERDRelationshipEnd)</a>
+</div>
+</li>
+</ol>
+</li>
 </ol>
 </li>
 <li>
@@ -274,6 +294,12 @@
 <div style="display: inline-block; white-space: nowrap">
     <span class="node-icon staruml-icon icon-ERDColumn"></span>
         <a href="5120418864eade4c60f8213743ce624a.html" target="content" style="white-space: nowrap;">postalcode_id</a>
+</div>
+</li>
+<li>
+<div style="display: inline-block; white-space: nowrap">
+    <span class="node-icon staruml-icon icon-ERDColumn"></span>
+        <a href="36ea4308df4cd76128052d01c2763f3c.html" target="content" style="white-space: nowrap;">addresstype_id</a>
 </div>
 </li>
 </ol>
@@ -426,6 +452,26 @@
         <a href="d3d46a7b62cfbed12941772f4d2ec87b.html" target="content" style="white-space: nowrap;">addresstype</a>
 </div>
 </li>
+<li>
+<div style="display: inline-block; white-space: nowrap">
+    <span class="node-icon staruml-icon icon-ERDRelationship"></span>
+        <a href="26e2010c2c8a7b61382b921553d49be5.html" target="content" style="white-space: nowrap;">Address has addresstype (addresstypes—addresses)</a>
+</div>
+<ol>
+<li>
+<div style="display: inline-block; white-space: nowrap">
+    <span class="node-icon staruml-icon icon-ERDRelationshipEnd"></span>
+        <a href="b190c43ef850d001b64d60b0da9ba6ba.html" target="content" style="white-space: nowrap;">(ERDRelationshipEnd)</a>
+</div>
+</li>
+<li>
+<div style="display: inline-block; white-space: nowrap">
+    <span class="node-icon staruml-icon icon-ERDRelationshipEnd"></span>
+        <a href="59e1d187da635ef1d50cd8d7e1301d90.html" target="content" style="white-space: nowrap;">(ERDRelationshipEnd)</a>
+</div>
+</li>
+</ol>
+</li>
 </ol>
 </li>
 <li>
@@ -444,12 +490,6 @@
 <div style="display: inline-block; white-space: nowrap">
     <span class="node-icon staruml-icon icon-ERDColumn"></span>
         <a href="f802904e6936e99c2ca12230a438aa5a.html" target="content" style="white-space: nowrap;">address_id</a>
-</div>
-</li>
-<li>
-<div style="display: inline-block; white-space: nowrap">
-    <span class="node-icon staruml-icon icon-ERDColumn"></span>
-        <a href="1a4b7cc85d1d2cbf3f92d4b7c3faf4ba.html" target="content" style="white-space: nowrap;">addresstype_id</a>
 </div>
 </li>
 <li>
@@ -534,14 +574,8 @@
 </li>
 <li>
 <div style="display: inline-block; white-space: nowrap">
-    <span class="node-icon staruml-icon icon-ERDColumn"></span>
-        <a href="f9af715c8c165641be804489cd5a9a94.html" target="content" style="white-space: nowrap;">addresstype_id</a>
-</div>
-</li>
-<li>
-<div style="display: inline-block; white-space: nowrap">
     <span class="node-icon staruml-icon icon-ERDRelationship"></span>
-        <a href="5b6e216d0fbeaf0f025e8bff52c60ce0.html" target="content" style="white-space: nowrap;">suppliers have addresses (supplieraddresses—suppliers)</a>
+        <a href="5b6e216d0fbeaf0f025e8bff52c60ce0.html" target="content" style="white-space: nowrap;">suppliers has addresses (supplieraddresses—suppliers)</a>
 </div>
 <ol>
 <li>
@@ -683,6 +717,90 @@
 </div>
 </li>
 </ol>
+</li>
+</ol>
+</li>
+<li>
+<div style="display: inline-block; white-space: nowrap">
+    <span class="node-icon staruml-icon icon-ERDEntity"></span>
+        <a href="c44bba126e39b776ad891af7ca027874.html" target="content" style="white-space: nowrap;">invoicetypes</a>
+</div>
+<ol>
+<li>
+<div style="display: inline-block; white-space: nowrap">
+    <span class="node-icon staruml-icon icon-ERDColumn"></span>
+        <a href="9d1f5bf589244f57c93dc224b37ffd58.html" target="content" style="white-space: nowrap;">id</a>
+</div>
+</li>
+<li>
+<div style="display: inline-block; white-space: nowrap">
+    <span class="node-icon staruml-icon icon-ERDColumn"></span>
+        <a href="a75e629da3558e0a9cc62f699a225acd.html" target="content" style="white-space: nowrap;">invoicetype</a>
+</div>
+</li>
+<li>
+<div style="display: inline-block; white-space: nowrap">
+    <span class="node-icon staruml-icon icon-ERDRelationship"></span>
+        <a href="1228dda9edde380d7e8054603a823181.html" target="content" style="white-space: nowrap;">(invoicetypes—invoices)</a>
+</div>
+<ol>
+<li>
+<div style="display: inline-block; white-space: nowrap">
+    <span class="node-icon staruml-icon icon-ERDRelationshipEnd"></span>
+        <a href="e32b158cb636efbc19de3f89d2e52a65.html" target="content" style="white-space: nowrap;">(ERDRelationshipEnd)</a>
+</div>
+</li>
+<li>
+<div style="display: inline-block; white-space: nowrap">
+    <span class="node-icon staruml-icon icon-ERDRelationshipEnd"></span>
+        <a href="f66a2a3ec4d844973322add757dab0e2.html" target="content" style="white-space: nowrap;">(ERDRelationshipEnd)</a>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>
+<div style="display: inline-block; white-space: nowrap">
+    <span class="node-icon staruml-icon icon-ERDEntity"></span>
+        <a href="1193e1eea5b7671effa68aa590e1448e.html" target="content" style="white-space: nowrap;">invoices</a>
+</div>
+<ol>
+<li>
+<div style="display: inline-block; white-space: nowrap">
+    <span class="node-icon staruml-icon icon-ERDColumn"></span>
+        <a href="3686a7c4e29f70c3f28f6d1bc7b05cb9.html" target="content" style="white-space: nowrap;">id</a>
+</div>
+</li>
+<li>
+<div style="display: inline-block; white-space: nowrap">
+    <span class="node-icon staruml-icon icon-ERDColumn"></span>
+        <a href="171cf7b7a08f0239104f90f0ec8acd6b.html" target="content" style="white-space: nowrap;">order_id</a>
+</div>
+</li>
+<li>
+<div style="display: inline-block; white-space: nowrap">
+    <span class="node-icon staruml-icon icon-ERDColumn"></span>
+        <a href="2556bcb6f3b8cf5c7e382dac91907d73.html" target="content" style="white-space: nowrap;">invoicetype_id</a>
+</div>
+</li>
+<li>
+<div style="display: inline-block; white-space: nowrap">
+    <span class="node-icon staruml-icon icon-ERDColumn"></span>
+        <a href="f744632df381a6f80c802ba26a598a79.html" target="content" style="white-space: nowrap;">invoicenumber</a>
+</div>
+</li>
+<li>
+<div style="display: inline-block; white-space: nowrap">
+    <span class="node-icon staruml-icon icon-ERDColumn"></span>
+        <a href="e608293dfb2efd3c20dc09c207439ec7.html" target="content" style="white-space: nowrap;">invoicedate</a>
+</div>
+</li>
+<li>
+<div style="display: inline-block; white-space: nowrap">
+    <span class="node-icon staruml-icon icon-ERDColumn"></span>
+        <a href="11b1d8e355c1c7b7756e692c337544c2.html" target="content" style="white-space: nowrap;">duedate</a>
+</div>
 </li>
 </ol>
 </li>
