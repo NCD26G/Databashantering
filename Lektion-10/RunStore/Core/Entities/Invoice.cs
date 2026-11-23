@@ -1,6 +1,4 @@
-using System;
-
-namespace Client.Entities;
+namespace Core.Entities;
 
 public class Invoice : BaseEntity
 {

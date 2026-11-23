@@ -1,4 +1,4 @@
-namespace Client.Entities;
+namespace Core.Entities;
 
 public class BaseEntity
 {

@@ -1,6 +1,4 @@
-using System.Collections.Generic;
-
-namespace Client.Entities;
+namespace Core.Entities;
 
 public class AddressType : BaseEntity
 {
