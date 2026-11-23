@@ -8,5 +8,5 @@ public class Product : BaseEntity
     public required string Name { get; set; }
     public decimal Price { get; set; }
     public int SupplierId { get; set; }
-    public required Supplier Supplier { get; set; }
+    public Supplier? Supplier { get; set; }
 }

@@ -1,8 +1,8 @@
-using Client.Entities;
+using Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Client.Configuration;
+namespace Infrastructure.Configuration;
 
 public class CityConfiguration : IEntityTypeConfiguration<City>
 {

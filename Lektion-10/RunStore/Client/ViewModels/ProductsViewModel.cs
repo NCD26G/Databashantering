@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using Client.Interfaces;
-using Client.Models;
-using Client.Repositories;
+using Core.Entities;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Core.Interfaces;
 
 namespace Client.ViewModels;
 
 public partial class ProductsViewModel : ViewModelBase
 {
-    // private readonly IProductService<Product>? _productService;
     private readonly IProductRepository? _productRepo;
     private readonly MainWindowViewModel? _mainWindowViewModel;
     private string _productId = string.Empty;
@@ -20,8 +18,7 @@ public partial class ProductsViewModel : ViewModelBase
     public partial bool ShowDialog { get; set; }
 
     [ObservableProperty]
-    public partial ObservableCollection<Entities.Product> Products { get; set; } = [];
-    // public partial ObservableCollection<Product> Products { get; set; } = [];
+    public partial ObservableCollection<Product> Products { get; set; } = [];
 
     public ProductsViewModel()
     {
@@ -37,14 +34,6 @@ public partial class ProductsViewModel : ViewModelBase
 
         Init();
     }
-    // public ProductsViewModel(IProductService<Product> productService, MainWindowViewModel mainWindowViewModel)
-    // {
-    //     _productService = productService;
-    //     _mainWindowViewModel = mainWindowViewModel;
-    //     PageTitle = "Våra produkter";
-
-    //     Init();
-    // }
 
     [RelayCommand]
     private async Task Delete(string id)
@@ -76,6 +65,20 @@ public partial class ProductsViewModel : ViewModelBase
         _mainWindowViewModel!.IsBusy = false;
     }
 
+    [RelayCommand]
+    private async Task Edit(int id)
+    {
+        var product = await _productRepo!.FindByIdAsync(id);
+        if (product is not null)
+        {
+            Console.WriteLine(product.Name);
+        }
+        else
+        {
+            Console.WriteLine("Hittade inget!!!");
+        }
+    }
+
     private async void Init()
     {
         await LoadProducts();
@@ -88,13 +91,8 @@ public partial class ProductsViewModel : ViewModelBase
             _mainWindowViewModel!.IsBusy = true;
             if (_productRepo is not null)
             {
-                Products = new ObservableCollection<Entities.Product>(await _productRepo.ListAllAsync());
+                Products = new ObservableCollection<Product>(await _productRepo.ListAllAsync());
             }
-            // if (_productService is not null)
-            // {
-            //     Products = new ObservableCollection<Product>(await _productService.ListAll());
-            // }
-
         }
         catch (Exception ex)
         {

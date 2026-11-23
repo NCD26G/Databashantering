@@ -4,9 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
-namespace Client.Data.Migrations
+namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
@@ -277,26 +275,6 @@ namespace Client.Data.Migrations
                         principalTable: "suppliers",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.InsertData(
-                table: "suppliers",
-                columns: new[] { "id", "suppliername" },
-                values: new object[,]
-                {
-                    { 1, "Asics" },
-                    { 2, "Nike" },
-                    { 3, "CLN Athletics" },
-                    { 4, "Swix" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "products",
-                columns: new[] { "id", "description", "imageurl", "itemnumber", "productname", "price", "supplier_id" },
-                values: new object[,]
-                {
-                    { 1, "Lorem ipsum dolor sit amet", "https://res.cloudinary.com/softtech-dev/image/upload/v1786556514/shoe-1_qig4ut.jpg", "1000", "Core 2000", 1295m, 1 },
-                    { 2, "Lorem ipsum dolor sit amet", "https://res.cloudinary.com/softtech-dev/image/upload/v1786556530/shoe-3_qbzcwy.jpg", "1001", "Gel 27", 2295m, 2 }
                 });
 
             migrationBuilder.CreateIndex(

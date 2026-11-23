@@ -34,7 +34,7 @@
               <Label Grid.Column="1" Content="{Binding Supplier.Name}" />
               <Label Grid.Column="2" Content="{Binding Name}" />
               <Label Grid.Column="3" Content="{Binding Price}" HorizontalAlignment="Right" />
-              <Button Grid.Column="4" Classes="icon-edit" HorizontalAlignment="Center" />
+              <Button Grid.Column="4" Classes="icon-edit" Command="{Binding $parent[UserControl].DataContext.EditCommand}" CommandParameter="{Binding Id}" HorizontalAlignment="Center" />
               <Button Grid.Column="5" Classes="icon-delete" HorizontalAlignment="Center" />
             </Grid>
           </DataTemplate>

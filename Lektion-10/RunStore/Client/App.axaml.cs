@@ -3,10 +3,10 @@ using System.Reflection;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using Client.Data;
 using Client.Helpers;
 using Client.ViewModels;
 using Client.Views;
+using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -45,6 +45,20 @@ public partial class App : Application
 
         var serviceProvider = collection.BuildServiceProvider();
         var vm = serviceProvider.GetRequiredService<MainWindowViewModel>();
+
+        // var context = serviceProvider.GetRequiredService<RunStoreDbContext>();
+
+        // try
+        // {
+        //     context.Database.Migrate();
+        //     SeedData.AddData(context);
+        // }
+        // catch (Exception ex)
+        // {
+        //     Console.WriteLine(ex.Message);
+        //     throw;
+        // }
+
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {

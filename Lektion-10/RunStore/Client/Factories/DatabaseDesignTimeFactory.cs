@@ -1,6 +1,6 @@
 using System;
 using System.Reflection;
-using Client.Data;
+using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;

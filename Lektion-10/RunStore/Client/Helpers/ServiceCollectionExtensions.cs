@@ -1,11 +1,9 @@
 using System;
-using Client.Data;
 using Client.Enums;
 using Client.Factories;
-using Client.Interfaces;
-using Client.Repositories;
-using Client.Services;
 using Client.ViewModels;
+using Core.Interfaces;
+using Infrastructure.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Client.Helpers;
@@ -18,7 +16,6 @@ public static class ServiceCollectionExtensions
         collection.AddSingleton<PageViewFactory>();
         collection.AddTransient<HomeViewModel>();
         collection.AddTransient<ProductsViewModel>();
-        collection.AddTransient(typeof(IProductService<>), typeof(ProductServices<>));
         collection.AddScoped<IProductRepository, ProductRepository>();
 
         collection.AddSingleton<Func<PageViewsEnum, ViewModelBase>>(c => name => name switch
