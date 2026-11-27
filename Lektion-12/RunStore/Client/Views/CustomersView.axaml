@@ -34,9 +34,9 @@
             <Label Grid.Column="2" Content="{Binding LastName}" />
             <Label Grid.Column="3" Content="{Binding Email}" />
             <Label Grid.Column="4" Content="{Binding Phone}" />
-            <Label Grid.Column="5" Content="{Binding Addresses[0].AddressLine}" />
-            <Label Grid.Column="6" Content="{Binding Addresses[0].PostalCode.Code}" />
-            <Label Grid.Column="7" Content="{Binding Addresses[0].PostalCode.City.Name}" />
+            <Label Grid.Column="5" Content="{Binding Address}" />
+            <Label Grid.Column="6" Content="{Binding PostalCode}" />
+            <Label Grid.Column="7" Content="{Binding City}" />
           </Grid>
         </DataTemplate>
       </ItemsControl.ItemTemplate>

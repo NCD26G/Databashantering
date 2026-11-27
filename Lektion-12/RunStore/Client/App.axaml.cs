@@ -46,18 +46,18 @@ public partial class App : Application
         var serviceProvider = collection.BuildServiceProvider();
         var vm = serviceProvider.GetRequiredService<MainWindowViewModel>();
 
-        // var context = serviceProvider.GetRequiredService<RunStoreDbContext>();
+        var context = serviceProvider.GetRequiredService<RunStoreDbContext>();
 
-        // try
-        // {
-        //     context.Database.Migrate();
-        //     SeedData.AddData(context);
-        // }
-        // catch (Exception ex)
-        // {
-        //     Console.WriteLine(ex.Message);
-        //     throw;
-        // }
+        try
+        {
+            context.Database.Migrate();
+            SeedData.AddData(context);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            throw;
+        }
 
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)

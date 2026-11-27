@@ -42,7 +42,7 @@
           <DataTemplate>
             <Grid ColumnDefinitions="100,150,*,200,75,75">
               <Label Grid.Column="0" Content="{Binding ItemNumber}" />
-              <Label Grid.Column="1" Content="{Binding Supplier.Name}" />
+              <Label Grid.Column="1" Content="{Binding Supplier}" />
               <Label Grid.Column="2" Content="{Binding Name}" />
               <Label Grid.Column="3" Content="{Binding Price}" HorizontalAlignment="Right" />
               <Button Grid.Column="4" Classes="icon-edit" Command="{Binding $parent[UserControl].DataContext.EditCommand}" CommandParameter="{Binding Id}" HorizontalAlignment="Center" />

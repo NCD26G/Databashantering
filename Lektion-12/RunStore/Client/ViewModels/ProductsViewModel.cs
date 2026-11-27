@@ -5,6 +5,8 @@ using Core.Entities;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Core.Interfaces;
+using System.Linq;
+using Client.DTOs;
 
 namespace Client.ViewModels;
 
@@ -21,7 +23,7 @@ public partial class ProductsViewModel : ViewModelBase
     public partial string SearchValue { get; set; } = string.Empty;
 
     [ObservableProperty]
-    public partial ObservableCollection<Product> Products { get; set; } = [];
+    public partial ObservableCollection<ProductListDto> Products { get; set; } = [];
 
     public ProductsViewModel()
     {
@@ -99,7 +101,16 @@ public partial class ProductsViewModel : ViewModelBase
             _mainWindowViewModel!.IsBusy = true;
             if (_productRepo is not null)
             {
-                Products = new ObservableCollection<Product>(await _productRepo.ListAllAsync());
+                var entities = await _productRepo.ListAllAsync();
+                var products = entities.Select(c => new ProductListDto
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    Price = c.Price,
+                    ItemNumber = c.ItemNumber,
+                    Supplier = c.Supplier.Name
+                });
+                Products = new ObservableCollection<ProductListDto>(products);
             }
         }
         catch (Exception ex)
