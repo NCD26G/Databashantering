@@ -1,0 +1,34 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <Design.PreviewWith>
+    <Border Padding="20">
+      <StackPanel Spacing="10">
+        <TextBox Text="Sök efter produktnamn"/>
+      </StackPanel>
+    </Border>
+  </Design.PreviewWith>
+
+  <Style Selector="TextBox">
+    <Setter Property="Background" Value="#E5E3E3" />
+    <Setter Property="PlaceholderForeground" Value="#333" />
+    <Setter Property="Foreground" Value="#444"/>
+  </Style>
+
+  <Style Selector="TextBox:pointerover /template/ Border">
+    <Setter Property="Background" Value="#E5E3E3" />
+  </Style>
+
+  <Style Selector="TextBox:focus-within /template/ Border">
+    <Setter Property="Background" Value="#E5E3E3" />
+  </Style>
+
+  <Style Selector="TextBox:focus-within /template/ TextPresenter">
+    <Setter Property="Background" Value="#E5E3E3" />
+  </Style>
+
+  <Style Selector="TextBox:focus">
+    <Setter Property="Background" Value="#E5E3E3" />
+    <Setter Property="Foreground" Value="#444"/>
+  </Style>
+</Styles>
