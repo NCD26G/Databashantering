@@ -101,16 +101,36 @@ public partial class ProductsViewModel : ViewModelBase
             _mainWindowViewModel!.IsBusy = true;
             if (_productRepo is not null)
             {
-                var entities = await _productRepo.ListAllAsync();
-                var products = entities.Select(c => new ProductListDto
+                if (string.IsNullOrWhiteSpace(SearchValue))
                 {
-                    Id = c.Id,
-                    Name = c.Name,
-                    Price = c.Price,
-                    ItemNumber = c.ItemNumber,
-                    Supplier = c.Supplier.Name
-                });
-                Products = new ObservableCollection<ProductListDto>(products);
+                    var entities = await _productRepo.ListAllAsync();
+                    var products = entities.Select(c => new ProductListDto
+                    {
+                        Id = c.Id,
+                        Name = c.Name,
+                        Price = c.Price,
+                        ItemNumber = c.ItemNumber,
+                        Supplier = c.Supplier.Name
+                    });
+                    Products = new ObservableCollection<ProductListDto>(products);
+                }
+                else
+                {
+                    Console.WriteLine("Söker efter: " + SearchValue);
+                    var entities = await _productRepo.FindByNameAsync(SearchValue);
+
+                    var products = entities.Select(c => new ProductListDto
+                    {
+                        Id = c.Id,
+                        Name = c.Name,
+                        Price = c.Price,
+                        ItemNumber = c.ItemNumber,
+                        Supplier = c.Supplier.Name
+                    });
+
+                    Products = new ObservableCollection<ProductListDto>(products);
+                }
+
             }
         }
         catch (Exception ex)

@@ -12,9 +12,9 @@ public class ProductRepository(RunStoreDbContext context) : IProductRepository
         return await context.Products.FindAsync(id);
     }
 
-    public Task<IReadOnlyList<Product>> FindByNameAsync(string searchValue)
+    public async Task<IReadOnlyList<Product>> FindByNameAsync(string searchValue)
     {
-        throw new NotImplementedException();
+        return await context.Products.Where(c => c.Name.ToLower().Contains(searchValue.ToLower())).ToListAsync();
     }
 
     public async Task<IReadOnlyList<Product>> ListAllAsync()
